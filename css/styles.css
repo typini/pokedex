@@ -1,0 +1,44 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Reenie Beanie', cursive;
+    font-size: 3em;
+    line-height: 0.8em;
+    background-color: #f2e67d;
+    background: repeating-linear-gradient(-4deg, #f2e67d, #f2e67d 60px, #ffd66d 60px, #ffd66d 64px);
+}
+
+h2 {
+    line-height: 1.3em;
+    margin: 3px;
+    border: 6px solid #f2e67d;
+    border-bottom: 2px solid #f2e67d;
+    border-right: 4px solid #f2e67d;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+h2:hover {
+    border: 6px solid #ff2000;
+    border-bottom: 2px solid #ff2000;
+    border-right: 4px solid #ff2000;
+}
+
+span {
+    color: blue;
+    padding: 20px;
+}
+
+li:hover {
+    text-decoration: underline;
+    text-decoration-style: solid;
+    text-decoration-color: #ff2000;
+}
+
+ul {
+    max-width: 500px;
+    margin: auto;
+    margin-top: 70px;
+}
