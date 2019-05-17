@@ -1,5 +1,5 @@
 //KEYARRAY is an array of required keys in a valid pokemon object
-const KEYARRAY = ['name', 'height', 'types'];
+const KEYARR = ['name', 'height', 'types'];
 
 //IIFE = Immediately Invoked Function Expression
 let pokemonRepository = (function () {
@@ -10,7 +10,7 @@ let pokemonRepository = (function () {
         if (typeof pokemon === 'object') {
             //verify the object has all necessary keys
             let valid = true;
-            KEYARRAY.forEach(function (key) {
+            KEYARR.forEach(function (key) {
                 if (!pokemon.hasOwnProperty(key))
                     valid = false;
             });              
@@ -23,27 +23,34 @@ let pokemonRepository = (function () {
         }
     }
 
+    function addListItem(pokemon) {
+        let $newLi = document.createElement("li");
+        let $newButton = document.createElement("button");
+        $newButton.innerText = pokemon.name;
+        let $theList = document.querySelector(".the_list");
+        $newLi.appendChild($newButton);
+        $theList.appendChild($newLi);
+
+        $newButton.addEventListener('click', function (event) {
+            showDetails(pokemon);
+        });
+    }
+
+    function showDetails(pokemon) {
+        console.log(pokemon);
+    }
+
     function getAll() {
         return pokedex;
     }
 
     return {
         add: add,
-        getAll: getAll
+        addListItem: addListItem,
+        getAll: getAll,
+        showDetails: showDetails
     };
 })();
-
-
-//The following entry will not work because the parameter's value is not an object
-console.log('TEST: The following entry will not work because the parameter\'s value is not an object');
-pokemonRepository.add('WillNotWorkExample');
-
-//The following entry will not work because this object is missing the required key 'height'
-console.log('TEST: The following entry will not work because this object is missing the required key \'height\'');
-pokemonRepository.add({
-    name: 'WontWorkExample',
-    types: ['missing', 'height']
-});
 
 pokemonRepository.add({
     name: 'Birobirio',
@@ -75,12 +82,12 @@ pokemonRepository.add({
     types: ['ooze', 'tentacles', 'slippery']
 });
 
-document.write("<ul>");
+
 pokemonRepository.getAll().forEach(function (pokemon) {
     let comment = " - Normal";
     if (pokemon.height < 5) comment = " - very small.";
     if (pokemon.height > 50) comment = " - Wow, that's tall!";
 
-    document.write('<li><h2>' + pokemon.name + '</h2><span class="declaration">(height: ' + pokemon.height + comment + ')</span></li>');
+    pokemonRepository.addListItem(pokemon);
+
 });
-document.write("</ul>");
