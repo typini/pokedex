@@ -55,6 +55,12 @@ button:hover {
     background-color: rgba(255, 32, 0, 0.2);
 }
 
+button:focus {
+    outline: 0 !important;
+    background-color: rgba(255, 32, 0, 0.45);
+}
+
+
 span {
     color: blue;
     padding: 20px;
