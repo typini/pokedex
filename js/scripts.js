@@ -1,9 +1,11 @@
 //KEYARRAY is an array of required keys in a valid pokemon object
-const KEYARR = ['name', 'height', 'types'];
+//const KEYARR = ['name', 'height', 'types'];
+const KEYARR = ['name', 'detailsUrl'];
 
 //IIFE = Immediately Invoked Function Expression
 let pokemonRepository = (function () {
     let pokedex = [];
+    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
     function add(pokemon) {
         //verify input in an object
@@ -26,7 +28,7 @@ let pokemonRepository = (function () {
     function addListItem(pokemon) {
         let $newLi = document.createElement("li");
         let $newButton = document.createElement("button");
-        $newButton.innerText = pokemon.name;
+        $newButton.innerText = (pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1));
         let $theList = document.querySelector(".the_list");
         $newLi.appendChild($newButton);
         $theList.appendChild($newLi);
@@ -37,57 +39,61 @@ let pokemonRepository = (function () {
     }
 
     function showDetails(pokemon) {
-        console.log(pokemon);
+        document.getElementById("loading").style.visibility = "visible";
+        console.log(loadDetails(pokemon));
     }
 
     function getAll() {
         return pokedex;
     }
 
+    //Get the complete list of Pokemon and their urls
+    //url:  https://pokeapi.co/api/v2/pokemon/
+    function loadList() {
+
+        return fetch(apiUrl).then(function (response) {
+            return response.json();
+        }).then(function (json) {
+            json.results.forEach(function (item) {
+                let pokemon = {
+                    name: item.name,
+                    detailsUrl: item.url
+                };
+                add(pokemon);
+            });
+        }).catch(function (e) {
+            console.log('There was an error: ' + e);
+        });
+    }
+
+    function loadDetails(item) {
+        let url = item.detailsUrl;
+        return fetch(url).then(function (response) {
+            return response.json();
+        }).then(function (details) {
+            item.imageUrl = details.sprites.front_default;
+            item.height = details.height;
+            item.types = Object.keys(details.types);
+            console.log(item);
+            setTimeout(function () { document.getElementById("loading").style.visibility = "hidden"; }, 400);
+        }).catch(function (e) {
+            console.error(e);
+        });
+    }
+
     return {
         add: add,
         addListItem: addListItem,
         getAll: getAll,
-        showDetails: showDetails
+        showDetails: showDetails,
+        loadList: loadList,
+        loadDetails: loadDetails
     };
 })();
 
-pokemonRepository.add({
-    name: 'Birobirio',
-    height: 80,
-    types: ['dust', 'wind', 'cacti']
-});
 
-pokemonRepository.add({
-    name: 'Chipozard',
-    height: 2,
-    types: ['bird', 'hooves', 'scales']
-});
-
-pokemonRepository.add({
-    name: 'Drikka',
-    height: 12,
-    types: ['fur', 'electricity', 'teeth']
-});
-
-pokemonRepository.add({
-    name: 'Fworasword',
-    height: 15,
-    types: ['metal', 'fire', 'scales']
-});
-
-pokemonRepository.add({
-    name: 'Gub',
-    height: 1,
-    types: ['ooze', 'tentacles', 'slippery']
-});
-
-
-pokemonRepository.getAll().forEach(function (pokemon) {
-    let comment = " - Normal";
-    if (pokemon.height < 5) comment = " - very small.";
-    if (pokemon.height > 50) comment = " - Wow, that's tall!";
-
-    pokemonRepository.addListItem(pokemon);
-
+pokemonRepository.loadList().then(function () {
+    pokemonRepository.getAll().forEach(function (pokemon) {
+        pokemonRepository.addListItem(pokemon);
+    });
 });

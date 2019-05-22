@@ -8,37 +8,42 @@ body {
     line-height: 0.8em;
     background-color: #f2e67d;
     background: repeating-linear-gradient(-2deg, #f2e67d, #f2e67d 60px, #ffd66d 60px, #ffd66d 64px);
-    transform: rotate(-2deg);
-    overflow: hidden;
 }
 
 header{
-    margin: 5px 20px;
+    max-width: 700px;
+    min-width: 360px;
+    margin: auto;
     padding: 3px 10px;
 }
 
-footer{
+footer {
+    margin: auto;
     padding: 30px;
     background: rgba(255,255,255,0.5);
-    width: 110%;
-    position: relative;
-    left: -3%;
+    width: 90%;
     text-align: center;
     line-height: 2em;
+    transform: rotate(-2deg);
 }
 
 h1 {
-    font-family: serif;
+    font-family: 'pokesolid', serif;
     font-size: 2.5em;
     display: inline-block;
+    color: #FFDE00;
+    -webkit-text-stroke: 2px blue;
+    text-shadow: -4px 3px 2px #333;
+    letter-spacing: 4px;
+    transform: rotate(-2deg);
 }
 
 button {
     font-family: 'Reenie Beanie', cursive;
     font-size: 2em;
-    line-height: 1.5em;
+    line-height: 0.9em;
     background-color: rgba(242,230,125,0);
-    margin: 3px;
+    margin: 2px;
     border: 6px solid #f2e67d;
     border-bottom: 2px solid #f2e67d;
     border-right: 4px solid #f2e67d;
@@ -46,6 +51,8 @@ button {
     display: inline-block;
     font-weight: 300;
     border-color: rgba(242,230,125,0);
+    transform: rotate(-2deg);
+    white-space: nowrap;
 }
 
 button:hover {
@@ -75,10 +82,44 @@ li:hover {
 ul {
     max-width: 500px;
     margin: auto;
-    margin-top: 70px;
+    white-space: nowrap;
 }
 
-.the_list {
-    margin: 25px;
-    padding: 15px;
+#loading {
+    width: 100%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -400px;
+    margin-top: -350px;
+    z-index: 5;
+    visibility: hidden;
+}
+
+#loading__text {
+    max-width: 800px;
+    font-family: 'pokesolid', serif;
+    text-align: center;
+    background-color: #fff;
+    padding: 30px;
+    font-size: 0.6em;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+}
+
+#loading__bottom {
+    margin-top: -3px;
+    max-width: 800px;
+    background-color: #fff;
+    height: 30px;
+    border-bottom-left-radius: 14px;
+    border-bottom-right-radius: 14px;
+}
+
+@font-face {
+    font-family: 'pokesolid';
+    src: url('../fonts/pokemon_solid-webfont.woff2') format('woff2'),
+        url('../fonts/pokemon_solid-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
