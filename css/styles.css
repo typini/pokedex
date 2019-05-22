@@ -87,33 +87,24 @@ ul {
 
 #loading {
     width: 100%;
+    max-width: 400px;
+    padding: 50px;
     position: fixed;
     top: 50%;
     left: 50%;
-    margin-left: -400px;
-    margin-top: -350px;
+    margin-left: -200px;
+    margin-top: -250px;
     z-index: 5;
     visibility: hidden;
+    border-radius: 14px;
+    background-color: #fff;
+    text-align: center;
 }
 
 #loading__text {
-    max-width: 800px;
     font-family: 'pokesolid', serif;
-    text-align: center;
-    background-color: #fff;
     padding: 30px;
-    font-size: 0.6em;
-    border-top-left-radius: 14px;
-    border-top-right-radius: 14px;
-}
-
-#loading__bottom {
-    margin-top: -3px;
-    max-width: 800px;
-    background-color: #fff;
-    height: 30px;
-    border-bottom-left-radius: 14px;
-    border-bottom-right-radius: 14px;
+    font-size: 0.7em;
 }
 
 @font-face {
